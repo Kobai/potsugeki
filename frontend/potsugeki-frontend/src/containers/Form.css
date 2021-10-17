@@ -1,0 +1,20 @@
+.text_area {
+	border: 1px solid #90a4ae;
+	height: 30px;
+	width: 350px;
+	margin: 5px;
+}
+
+.submit_button {
+	height: 30px;
+	width: 350px;
+	background-color: #448aff;
+	border: 5px solid #448aff;
+	border-radius: 10px;
+	color: white;
+}
+
+.form_container {
+	display: flex;
+	flex-direction: column;
+}

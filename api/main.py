@@ -1,17 +1,22 @@
 import os
 
-from flask import Flask, request, jsonify
-from flask_cors import CORS, cross_origin
+from flask import Flask, request, jsonify, make_response
 from firebase_admin import credentials, firestore, initialize_app
 
 app = Flask(__name__)
-cors = CORS(app)
-app.config['CORS_HEADERS'] = 'Content-Type'
 
 cred = credentials.Certificate('key.json')
 default_app = initialize_app(cred)
 db = firestore.client()
 todo_ref = db.collection('users')
+
+
+def preflight():
+    response = make_response()
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    response.headers.add('Access-Control-Allow-Headers', "*")
+    response.headers.add('Access-Control-Allow-Methods', "*")
+    return response
 
 
 @app.route("/")
@@ -21,57 +26,61 @@ def hello_world():
 
 
 @app.route('/new_user', methods=['POST'])
-@cross_origin()
 def create_user():
     try:
         id = request.json['id']
         todo_ref.document(id).set(request.json)
-        return jsonify({"success": True}), 200
+        res = jsonify({"success": True})
+        res.headers.add('Access-Control-Allow-Origin', '*')
+        return res
     except Exception as e:
         return f"An Error Occured: {e}"
 
 
-@app.route('/new_clip/<user>', methods=['POST'])
-@cross_origin()
+@app.route('/new_clip/<user>', methods=['OPTIONS','POST'])
 def create_clip(user):
+    if request.method == 'OPTIONS':
+        return preflight()
     try:
         data = request.json
         data['url'] = data['url'].split('/')[-1]
         todo_ref.document(user).collection('clips').add(data)
-        return jsonify({"success": True}), 200
+        res = jsonify({"success": True})
+        res.headers.add('Access-Control-Allow-Origin', '*')
+        return res
     except Exception as e:
         return f"An Error Occured: {e}"
 
 
 @app.route('/list_clips/<user>', methods=['GET'])
-@cross_origin()
 def read(user):
     try:
         clips = [doc.to_dict() for doc in todo_ref.document(user).collection('clips').stream()]
-        return jsonify(clips), 200
+        res = jsonify(clips)
+        res.headers.add('Access-Control-Allow-Origin', '*')
+        return res
     except Exception as e:
         return f"An Error Occured: {e}"
 
 
 @app.route('/update/<user>/<clip>', methods=['PUT'])
-@cross_origin()
 def update(user,clip):
     try:
         todo_ref.document(user).collection('clips').document(clip).update(request.json)
-        return jsonify({"success": True}), 200
+        res = jsonify({"success": True})
+        res.headers.add('Access-Control-Allow-Origin', '*')
+        return res
     except Exception as e:
         return f"An Error Occured: {e}"
 
 
 @app.route('/delete/<user>/<clip>', methods=['DELETE'])
-@cross_origin()
 def delete(user,clip):
     try:
-        print(user)
-        print(clip)
-        print(todo_ref.document(user).collections('clips'))
         todo_ref.document(user).collection('clips').document(clip).delete()
-        return jsonify({"success": True}), 200
+        res = jsonify({"success": True})
+        res.headers.add('Access-Control-Allow-Origin', '*')
+        return res
     except Exception as e:
         return f"An Error Occured: {e}"
 

@@ -1,4 +1,4 @@
-import { TwitterTweetEmbed, TwitterVideoEmbed } from 'react-twitter-embed'
+import { TwitterTweetEmbed } from 'react-twitter-embed'
 import './Card.css'
 
 function Card(props) {
@@ -7,7 +7,7 @@ function Card(props) {
 		<div className='card_container'>
 			<div className='meta_container'>
 				<div className='title'>{props.props.name}</div>
-				{props.props.recipe != '' &&
+				{props.props.recipe !== '' &&
 					<div className='recipe'>{props.props.recipe}</div>
 				}
 				<div className='tag_container'>
