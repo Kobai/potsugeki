@@ -1,0 +1,46 @@
+.card_container {
+	display: flex;
+	margin: 10px;
+	background: white;
+  	box-shadow: 0 5px 5px 0 rgba(154,160,185,.05), 0 5px 30px 0 rgba(166,173,201,.22);
+  	border-radius: 10px;
+  	flex-direction: column;
+  	transition: all .2s ease-in-out;
+	width: 600px;
+	height: 720px;
+	align-items: left;
+}
+
+.clip_container {
+	margin-left: 25px;
+}
+
+.meta_container {
+	display: flex;
+	flex-direction: column;
+	margin: 10px;
+	text-align: left;
+}
+
+.title {
+	font-size: 30px;
+	font-weight: bold;
+}
+
+.recipe {
+	font-size: 27;
+}
+
+.tag_container {
+	margin-top: 10px;
+}
+
+
+.tag {
+	border: 2px solid #448aff;
+	background-color: #448aff;
+	color: white;
+	margin-right: 5px;
+	border-radius: 10px;
+	padding: 0px 5px 0px 5px;
+}
