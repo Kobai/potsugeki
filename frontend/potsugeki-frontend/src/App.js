@@ -14,7 +14,6 @@ function App() {
     const res = await axios(
       "https://potsugeki-z7qgr7dfca-uc.a.run.app/list_clips/kobai"
     )
-    console.log(res.data)
     setData(res.data)
   },[])
 

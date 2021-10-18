@@ -47,7 +47,6 @@ def create_clip(user):
         data['url'] = data['url'].split('/')[-1]
         data['id'] = shortuuid.uuid()
         todo_ref.document(user).collection('clips').document(data['id']).set(data)
-        # todo_ref.document(user).collection('clips').add(data)
         res = jsonify({"success": True})
         res.headers.add('Access-Control-Allow-Origin', '*')
         return res
