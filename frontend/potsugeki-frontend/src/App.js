@@ -1,6 +1,5 @@
 import logo from './logo.svg';
 import './App.css';
-import { TwitterTweetEmbed} from 'react-twitter-embed'
 import Card from './components/Card'
 import Form from './containers/Form'
 import { useEffect, useState } from 'react';

@@ -1,10 +1,20 @@
 import { TwitterTweetEmbed } from 'react-twitter-embed'
 import './Card.css'
+import axios from 'axios'
 
 function Card(props) {
-	console.log(props)
+
+	async function handleDelete(e){
+		e.preventDefault()
+		const res = await axios.delete(`https://potsugeki-z7qgr7dfca-uc.a.run.app/delete/kobai/${props.props.id}`)
+		window.location.reload(false)
+	}
+
 	return (
 		<div className='card_container'>
+			<div>
+				<button className='delete_button' onClick={handleDelete}>X</button>
+			</div>
 			<div className='meta_container'>
 				<div className='title'>{props.props.name}</div>
 				{props.props.recipe !== '' &&

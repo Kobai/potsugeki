@@ -2,6 +2,7 @@ import os
 
 from flask import Flask, request, jsonify, make_response
 from firebase_admin import credentials, firestore, initialize_app
+import shortuuid
 
 app = Flask(__name__)
 
@@ -44,7 +45,9 @@ def create_clip(user):
     try:
         data = request.json
         data['url'] = data['url'].split('/')[-1]
-        todo_ref.document(user).collection('clips').add(data)
+        data['id'] = shortuuid.uuid()
+        todo_ref.document(user).collection('clips').document(data['id']).set(data)
+        # todo_ref.document(user).collection('clips').add(data)
         res = jsonify({"success": True})
         res.headers.add('Access-Control-Allow-Origin', '*')
         return res
@@ -74,8 +77,10 @@ def update(user,clip):
         return f"An Error Occured: {e}"
 
 
-@app.route('/delete/<user>/<clip>', methods=['DELETE'])
+@app.route('/delete/<user>/<clip>', methods=['OPTIONS','DELETE'])
 def delete(user,clip):
+    if request.method == 'OPTIONS':
+        return preflight()
     try:
         todo_ref.document(user).collection('clips').document(clip).delete()
         res = jsonify({"success": True})

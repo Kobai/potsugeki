@@ -6,6 +6,7 @@ click==8.0.3
 colorama==0.4.4
 firebase-admin==5.0.3
 Flask==2.0.1
+Flask-Cors==3.0.10
 google-api-core==2.1.1
 google-api-python-client==2.26.1
 google-auth==2.3.0
@@ -32,6 +33,7 @@ pyasn1-modules==0.2.8
 pyparsing==2.4.7
 requests==2.26.0
 rsa==4.7.2
+shortuuid==1.0.1
 six==1.16.0
 uritemplate==4.1.1
 urllib3==1.26.7
