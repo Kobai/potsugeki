@@ -11,9 +11,11 @@
 	align-items: left;
 }
 
+
 .clip_container {
 	margin-left: 25px;
 }
+
 
 .meta_container {
 	display: flex;
@@ -23,14 +25,17 @@
 	text-align: left;
 }
 
+
 .title {
 	font-size: 30px;
 	font-weight: bold;
 }
 
+
 .recipe {
 	font-size: 27;
 }
+
 
 .tag_container {
 	margin-top: 10px;
@@ -45,6 +50,7 @@
 	border-radius: 10px;
 	padding: 0px 5px 0px 5px;
 }
+
 
 .delete_button {
 	width: 30px;
